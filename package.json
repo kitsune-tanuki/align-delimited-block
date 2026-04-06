@@ -1,0 +1,51 @@
+{
+  "name": "align-delimited-block",
+  "displayName": "Align Delimited Block",
+  "description": "Align AsciiDoc delimited tables",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "publisher": "your-name",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourname/align-delimited-block"
+  },
+  "homepage": "https://github.com/yourname/align-delimited-block",
+  "bugs": {
+    "url": "https://github.com/yourname/align-delimited-block/issues"
+  },
+  "license": "MIT",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:alignDelimitedBlock.align",
+    "onCommand:alignDelimitedBlock.alignWithPrompt"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "alignDelimitedBlock.align",
+        "title": "Align Delimited Block"
+      },
+      {
+        "command": "alignDelimitedBlock.alignWithPrompt",
+        "title": "Align Delimited Block (Prompt)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "alignDelimitedBlock.align",
+        "key": "ctrl+shift+a",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "alignDelimitedBlock.alignWithPrompt",
+        "key": "ctrl+alt+a",
+        "when": "editorTextFocus"
+      }
+    ]
+  }
+}
