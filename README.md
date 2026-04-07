@@ -1,6 +1,8 @@
 # Align Delimited Block
 
-A simple VSCode extension to automatically align delimited text blocks around the cursor.
+A VSCode extension to automatically align delimiter-structured text blocks around the cursor.
+
+Unlike many alignment tools, this extension calculates **visual display width**, so full-width characters (Japanese, Chinese, Korean) and emoji align correctly.
 
 Useful for AsciiDoc tables, LaTeX align environments, arrow expressions, configuration files, and general column formatting.
 
@@ -8,12 +10,41 @@ Useful for AsciiDoc tables, LaTeX align environments, arrow expressions, configu
 
 ## Features
 
-* Align using fixed delimiter (`|`)
+* Align using default delimiter (`|`)
 * Align using custom delimiter (user input)
 * Supports multi-character delimiters (`=>`, `::`, `->` etc)
 * Works automatically on contiguous structured lines
 * No text selection required
 * Lightweight and fast
+* Correct alignment of full-width characters (CJK support)
+* Handles emoji and combining characters correctly
+* Aligns by display width, not character count
+
+---
+
+## Why this extension?
+
+Many alignment tools only count characters instead of display width.
+
+This causes broken formatting when text contains Japanese, Chinese, Korean or other full-width characters.
+
+Example problem:
+
+Before (typical formatter result):
+
+```
+a   | b
+日本語 | c
+```
+
+Correct alignment:
+
+```
+a      | b
+日本語 | c
+```
+
+This extension fixes this by calculating real visual width.
 
 ---
 
@@ -36,7 +67,7 @@ a | bb | c
 aaa | b | cc
 ```
 
-Run command:
+Run:
 
 ```
 Align Delimited Block (|)
@@ -61,13 +92,13 @@ long_variable => 20
 y => 5
 ```
 
-Run command:
+Run:
 
 ```
 Align Delimited Block (Custom Delimiter)
 ```
 
-Enter delimiter:
+Enter:
 
 ```
 =>
@@ -83,6 +114,26 @@ y             => 5
 
 ---
 
+### CJK example
+
+Before:
+
+```
+name | value
+長い名前 | 10
+x | 5
+```
+
+Result:
+
+```
+name     | value
+長い名前 | 10
+x        | 5
+```
+
+---
+
 ### LaTeX align example
 
 Before:
@@ -93,7 +144,7 @@ long & = x
 z & = 100
 ```
 
-Run custom delimiter:
+Delimiter:
 
 ```
 &
@@ -138,14 +189,6 @@ Works well with:
 * Column formatted text
 * Arrow expressions
 * Any delimiter-structured text
-
----
-
-## Motivation
-
-Manually aligning delimited text is tedious and error-prone.
-
-This extension provides a simple and fast way to keep text blocks readable and consistently formatted.
 
 ---
 
