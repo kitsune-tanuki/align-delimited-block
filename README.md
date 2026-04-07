@@ -192,4 +192,3 @@ kitsune-tanuki
 ## Changelog
 
 See CHANGELOG.md for details.
-
