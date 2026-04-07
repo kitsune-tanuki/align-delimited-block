@@ -1,24 +1,36 @@
 {
   "name": "align-delimited-block",
   "displayName": "Align Delimited Block",
-  "description": "Align AsciiDoc delimited tables",
-  "version": "1.0.0",
+  "description": "Align text blocks using delimiters like |, &, => or custom input. Useful for AsciiDoc tables, LaTeX align environments and general text formatting.",
+  "version": "0.1.0",
+  "publisher": "kitsune-tanuki",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.80.0"
   },
-  "publisher": "your-name",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourname/align-delimited-block"
-  },
-  "homepage": "https://github.com/yourname/align-delimited-block",
-  "bugs": {
-    "url": "https://github.com/yourname/align-delimited-block/issues"
-  },
-  "license": "MIT",
   "categories": [
+    "Formatters",
     "Other"
   ],
+  "keywords": [
+    "align",
+    "table",
+    "formatter",
+    "text",
+    "delimiter",
+    "asciidoc",
+    "latex",
+    "tex",
+    "columns"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kitsune-tanuki/align-delimited-block.git"
+  },
+  "homepage": "https://github.com/kitsune-tanuki/align-delimited-block",
+  "bugs": {
+    "url": "https://github.com/kitsune-tanuki/align-delimited-block/issues"
+  },
   "activationEvents": [
     "onCommand:alignDelimitedBlock.align",
     "onCommand:alignDelimitedBlock.alignWithPrompt"
@@ -28,11 +40,13 @@
     "commands": [
       {
         "command": "alignDelimitedBlock.align",
-        "title": "Align Delimited Block"
+        "title": "Align Delimited Block (|)",
+        "category": "Align Delimited Block"
       },
       {
         "command": "alignDelimitedBlock.alignWithPrompt",
-        "title": "Align Delimited Block (Prompt)"
+        "title": "Align Delimited Block (Custom Delimiter)",
+        "category": "Align Delimited Block"
       }
     ],
     "keybindings": [
