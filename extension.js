@@ -5,28 +5,46 @@ const align = require("./align");
 
 // ★ 共通処理
 async function runAlignment(editor, delimiter) {
-  const document = editor.document;
-  const cursorLine = editor.selection.active.line;
-  const lines = [];
-  for (let i = 0; i < document.lineCount; i++) {
-    lines.push(document.lineAt(i).text);
-  }
-  const block = align.findBlock(lines, cursorLine, delimiter);
-  if (!block) {
-    vscode.window.showInformationMessage(
-      `No delimited block found (delimiter: "${delimiter}")`,
-    );
-    return;
-  }
-  const target = lines.slice(block.start, block.end + 1);
-  const formatted = align.formatBlock(target, delimiter);
-  await editor.edit((editBuilder) => {
-    for (let i = 0; i < formatted.length; i++) {
-      const lineNumber = block.start + i;
-      const line = document.lineAt(lineNumber);
-      editBuilder.replace(line.range, formatted[i]);
+  try {
+    if (!delimiter || delimiter.length > 50) {
+      return;
     }
-  });
+    const document = editor.document;
+    const cursorLine = editor.selection.active.line;
+    const lines = [];
+    for (let i = 0; i < document.lineCount; i++) {
+      lines.push(document.lineAt(i).text);
+    }
+    const block = align.findBlock(lines, cursorLine, delimiter);
+    if (!block) {
+      vscode.window.showInformationMessage(
+        `No delimited block found (delimiter: "${delimiter}")`,
+      );
+      return;
+    }
+    const target = lines.slice(block.start, block.end + 1);
+    if (target.length < 2) {
+      vscode.window.showInformationMessage("Nothing to align (only one line)");
+      return;
+    }
+    const formatted = align.formatBlock(target, delimiter);
+    if (target.join("\n") === formatted.join("\n")) {
+      return;
+    }
+    const success = await editor.edit((editBuilder) => {
+      for (let i = 0; i < formatted.length; i++) {
+        const lineNumber = block.start + i;
+        const line = document.lineAt(lineNumber);
+        editBuilder.replace(line.range, formatted[i]);
+      }
+    });
+    if (!success) {
+      vscode.window.showWarningMessage("Alignment failed");
+    }
+  } catch (err) {
+    vscode.window.showErrorMessage("Alignment error: " + err.message);
+    console.error(err);
+  }
 }
 
 function activate(context) {

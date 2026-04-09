@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on Keep a Changelog:
 https://keepachangelog.com/en/1.0.0/
 
+## [0.1.2] - 2026-04-09
+
+### Improved
+
+* Skip alignment for single-line blocks
+* Avoid unnecessary edits when no changes are detected
+* Improve delimiter validation
+* Improve error handling during alignment
+
+### Internal
+
+* Add defensive checks for safer editor operations
+* Validate editor.edit operation result
+
 ## [0.1.1] - 2026-04-08
 
 ### Added
