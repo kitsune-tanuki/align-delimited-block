@@ -2,7 +2,7 @@
   "name": "align-delimited-block",
   "displayName": "Align Delimited Block",
   "description": "Align text blocks using delimiters like |, &, => or custom input. Useful for AsciiDoc tables, LaTeX align environments and general text formatting.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "kitsune-tanuki",
   "license": "MIT",
   "engines": {
