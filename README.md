@@ -30,16 +30,16 @@ This causes broken formatting when text contains Japanese, Chinese, Korean or ot
 
 Example problem:
 
-Before (typical formatter result):
+Typical formatter result:
 
-```
+```text
 a   | b
 日本語 | c
 ```
 
 Correct alignment:
 
-```
+```text
 a      | b
 日本語 | c
 ```
@@ -58,26 +58,30 @@ The extension automatically detects contiguous lines before and after the cursor
 
 ## Examples
 
+> [!NOTE]
+> For better visibility, spaces in the following examples are represented by `·` (MIDDLE DOT).
+> The extension outputs actual standard spaces.
+
 ### Pipe delimiter example
 
 Before:
 
-```
-a | bb | c
-aaa | b | cc
+```text
+a·|·bb·|·c
+aaa·|·b·|·cc
 ```
 
 Run:
 
-```
+```text
 Align Delimited Block (|)
 ```
 
 Result:
 
-```
-a   | bb | c
-aaa | b  | cc
+```text
+a···|·bb·|·c
+aaa·|·b··|·cc
 ```
 
 ---
@@ -86,30 +90,30 @@ aaa | b  | cc
 
 Before:
 
-```
-x => 10
-long_variable => 20
-y => 5
+```text
+x·=>·10
+long_variable·=>·20
+y·=>·5
 ```
 
 Run:
 
-```
+```text
 Align Delimited Block (Custom Delimiter)
 ```
 
 Enter:
 
-```
+```text
 =>
 ```
 
 Result:
 
-```
-x             => 10
-long_variable => 20
-y             => 5
+```text
+x·············=>·10
+long_variable·=>·20
+y·············=>·5
 ```
 
 ---
@@ -118,18 +122,18 @@ y             => 5
 
 Before:
 
-```
-name | value
-長い名前 | 10
-x | 5
+```text
+name·|·value
+長い名前·|·10
+x·|·5
 ```
 
 Result:
 
-```
-name     | value
-長い名前 | 10
-x        | 5
+```text
+name·····|·value
+長い名前·|·10
+x········|·5
 ```
 
 ---
@@ -138,24 +142,24 @@ x        | 5
 
 Before:
 
-```
-a & = b + c
-long & = x
-z & = 100
+```text
+a·&·=·b·+·c
+long·&·=·x
+z·&·=·100
 ```
 
 Delimiter:
 
-```
+```text
 &
 ```
 
 Result:
 
-```
-a    & = b + c
-long & = x
-z    & = 100
+```text
+a····&·=·b·+·c
+long·&·=·x
+z····&·=·100
 ```
 
 ---
