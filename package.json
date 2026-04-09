@@ -40,7 +40,7 @@
     "commands": [
       {
         "command": "alignDelimitedBlock.align",
-        "title": "Align Delimited Block (|)",
+        "title": "Align Delimited Block (Default Delimiter)",
         "category": "Align Delimited Block"
       },
       {
@@ -60,6 +60,16 @@
         "key": "ctrl+alt+a",
         "when": "editorTextFocus"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Align Delimited Block",
+      "properties": {
+        "alignDelimitedBlock.defaultDelimiter": {
+          "type": "string",
+          "default": "|",
+          "description": "Default delimiter used by Align Delimited Block (Ctrl+Shift+A)"
+        }
+      }
+    }
   }
 }
