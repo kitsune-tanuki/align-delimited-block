@@ -12,7 +12,12 @@ async function runAlignment(editor, delimiter) {
     lines.push(document.lineAt(i).text);
   }
   const block = align.findBlock(lines, cursorLine, delimiter);
-  if (!block) return;
+  if (!block) {
+    vscode.window.showInformationMessage(
+      `No delimited block found (delimiter: "${delimiter}")`,
+    );
+    return;
+  }
   const target = lines.slice(block.start, block.end + 1);
   const formatted = align.formatBlock(target, delimiter);
   await editor.edit((editBuilder) => {
@@ -34,7 +39,7 @@ function activate(context) {
       const editor = vscode.window.activeTextEditor;
       if (!editor) return;
       const config = vscode.workspace.getConfiguration("alignDelimitedBlock");
-      const delimiter = config.get("defaultDelimiter", "|").trim();
+      const delimiter = (config.get("defaultDelimiter") || "|").trim() || "|";
       // ★ 共通処理呼ぶだけ
       await runAlignment(editor, delimiter);
     },
@@ -49,11 +54,16 @@ function activate(context) {
       if (!editor) return;
       const delimiter = await vscode.window.showInputBox({
         prompt: "Enter delimiter",
-        value: vscode.workspace.getConfiguration("alignDelimitedBlock").get("defaultDelimiter", "|")
+        value: vscode.workspace
+          .getConfiguration("alignDelimitedBlock")
+          .get("defaultDelimiter", "|"),
       });
       if (delimiter === undefined) return;
       const trimmed = delimiter.trim();
-      if (!trimmed) return;
+      if (!trimmed) {
+        vscode.window.showWarningMessage("Delimiter cannot be empty");
+        return;
+      }
       // ★ 共通処理呼ぶだけ
       await runAlignment(editor, trimmed);
     },
