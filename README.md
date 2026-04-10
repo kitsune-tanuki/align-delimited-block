@@ -1,50 +1,55 @@
 # Align Delimited Block
 
-A VSCode extension to automatically align delimiter-structured text blocks around the cursor.
+[日本語版はこちら / Japanese README](./README.ja.md)
 
-Unlike many alignment tools, this extension calculates **visual display width**, so full-width characters (Japanese, Chinese, Korean) and emoji align correctly.
+A VSCode extension that automatically aligns delimiter-structured text blocks around the cursor.
 
-Useful for AsciiDoc tables, LaTeX align environments, arrow expressions, configuration files, and general column formatting.
+Unlike many alignment tools, this extension calculates **visual display width**, allowing full-width characters (Japanese, Chinese, Korean), emoji, and combining characters to align correctly.
+
+Useful for AsciiDoc tables, LaTeX align environments, arrow expressions, configuration files, and general column-style formatting.
 
 ---
 
 ## Features
 
-* Align using default delimiter (`|`)
-* Align using custom delimiter (user input)
-* Supports multi-character delimiters (`=>`, `::`, `->` etc)
-* Works automatically on contiguous structured lines
+* Align using the configured default delimiter (`|` by default)
+* Align using a custom delimiter (user input)
+* Supports multi-character delimiters (`=>`, `::`, `->`, etc.)
+* Automatically detects contiguous structured lines around the cursor
+* Skips single-line blocks
 * No text selection required
+* Avoids unnecessary edits when no alignment changes are needed
 * Lightweight and fast
-* Correct alignment of full-width characters (CJK support)
+* Correctly aligns full-width characters (CJK support)
 * Handles emoji and combining characters correctly
 * Aligns by display width, not character count
+* Includes improved validation and error handling
 
 ---
 
 ## Why this extension?
 
-Many alignment tools only count characters instead of display width.
+Many alignment tools count characters rather than actual display width.
 
-This causes broken formatting when text contains Japanese, Chinese, Korean or other full-width characters.
+This results in broken visual alignment when text includes Japanese, Chinese, Korean, or other full-width characters.
 
-Example problem:
+Example:
 
-Typical formatter result:
+Typical formatter output:
 
 ```text
 a   | b
 日本語 | c
 ```
 
-Correct alignment:
+Expected alignment:
 
 ```text
 a      | b
 日本語 | c
 ```
 
-This extension fixes this by calculating real visual width.
+This extension resolves the issue by calculating true visual width.
 
 ---
 
@@ -54,13 +59,17 @@ Place the cursor inside a structured text block.
 
 The extension automatically detects contiguous lines before and after the cursor that share the same delimiter structure and aligns them.
 
+If the detected block contains only one line, alignment is skipped.
+
+If the aligned result is identical to the original text, no edit is applied.
+
 ---
 
 ## Examples
 
 > [!NOTE]
-> For better visibility, spaces in the following examples are represented by `·` (MIDDLE DOT).
-> The extension outputs actual standard spaces.
+> For readability, spaces in the following examples are represented by `·` (MIDDLE DOT).
+> The extension outputs normal spaces.
 
 ### Pipe delimiter example
 
@@ -74,7 +83,7 @@ aaa·|·b·|·cc
 Run:
 
 ```text
-Align Delimited Block (|)
+Align Delimited Block (Default Delimiter)
 ```
 
 Result:
@@ -166,23 +175,23 @@ z····&·=·100
 
 ## Commands
 
-| Command                                  | Description                         |
-| ---------------------------------------- | ----------------------------------- |
-| Align Delimited Block (\|)               | Align using pipe delimiter          |
-| Align Delimited Block (Custom Delimiter) | Align using user provided delimiter |
+| Command                                   | Description                                  |
+| ----------------------------------------- | -------------------------------------------- |
+| Align Delimited Block (Default Delimiter) | Align using the configured default delimiter |
+| Align Delimited Block (Custom Delimiter)  | Align using a custom delimiter               |
 
 ---
 
 ## Keybindings
 
-| Key          | Action                       |
-| ------------ | ---------------------------- |
-| Ctrl+Shift+A | Align using pipe delimiter   |
-| Ctrl+Alt+A   | Align using custom delimiter |
+| Key          | Action                            |
+| ------------ | --------------------------------- |
+| Ctrl+Shift+A | Align using the default delimiter |
+| Ctrl+Alt+A   | Align using a custom delimiter    |
 
 ---
 
-## Supported use cases
+## Use cases
 
 Works well with:
 
@@ -190,7 +199,7 @@ Works well with:
 * LaTeX align environments
 * Markdown tables
 * Configuration files
-* Column formatted text
+* Column-aligned text
 * Arrow expressions
 * Any delimiter-structured text
 
@@ -198,29 +207,32 @@ Works well with:
 
 ## Requirements
 
-None.
+No additional requirements.
 
 ---
 
 ## Extension Settings
 
-Currently no settings are required.
+This extension supports the following setting:
 
-Future versions may include configurable defaults.
+* `alignDelimitedBlock.defaultDelimiter`  
+  Sets the delimiter used by **Align Delimited Block (Default Delimiter)** (`Ctrl+Shift+A`).
+
+Default: `|`
+
+---
+
+## Notes
+
+* Single-line blocks are intentionally skipped
+* If alignment produces no changes, no edit is applied
+* Empty or invalid delimiters are safely rejected
 
 ---
 
 ## Known Issues
 
 No known issues at this time.
-
----
-
-## Release Notes
-
-### 0.1.0
-
-Initial public release.
 
 ---
 
@@ -238,4 +250,4 @@ kitsune-tanuki
 
 ## Changelog
 
-See CHANGELOG.md for details.
+See [CHANGELOG.md](./CHANGELOG.md) for version history and details.
