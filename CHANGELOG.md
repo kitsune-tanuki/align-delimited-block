@@ -7,17 +7,18 @@ https://keepachangelog.com/en/1.0.0/
 
 ## [0.1.2] - 2026-04-09
 
-### Improved
+### Changed
 
 * Skip alignment for single-line blocks
 * Avoid unnecessary edits when no changes are detected
-* Improve delimiter validation
+* Improve delimiter validation and alignment error handling
 * Improve error handling during alignment
 
 ### Internal
 
 * Add defensive checks for safer editor operations
-* Validate editor.edit operation result
+* Validate `editor.edit` operation results
+* Refactor command handling to use shared alignment processing
 
 ## [0.1.1] - 2026-04-08
 
