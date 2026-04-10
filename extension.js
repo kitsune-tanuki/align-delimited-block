@@ -3,10 +3,22 @@ console.log("=== EXTENSION LOADED ===");
 const vscode = require("vscode");
 const align = require("./align");
 
+function validateDelimiter(delimiter) {
+  if (!delimiter) {
+    return "Delimiter cannot be empty";
+  }
+  if (delimiter.length > 50) {
+    return `Delimiter is too long (${delimiter.length}/50)`;
+  }
+  return null;
+}
+
 // ★ 共通処理
 async function runAlignment(editor, delimiter) {
   try {
-    if (!delimiter || delimiter.length > 50) {
+    const error = validateDelimiter(delimiter);
+    if (error) {
+      vscode.window.showWarningMessage(error);
       return;
     }
     const document = editor.document;
@@ -78,8 +90,9 @@ function activate(context) {
       });
       if (delimiter === undefined) return;
       const trimmed = delimiter.trim();
-      if (!trimmed) {
-        vscode.window.showWarningMessage("Delimiter cannot be empty");
+      const error = validateDelimiter(trimmed);
+      if (error) {
+        vscode.window.showWarningMessage(error);
         return;
       }
       // ★ 共通処理呼ぶだけ
