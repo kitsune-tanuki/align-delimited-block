@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on Keep a Changelog:
 https://keepachangelog.com/en/1.0.0/
 
+## [0.2.0] - 2026-04-13
+
+### Added
+
+* Support alignment on selected lines in addition to automatic block detection
+* Auto-detect delimiter from selection or current line for prompt input
+* Dedicated Markdown table formatter with alignment and separator handling
+* New setting: `markdownTableCenterHeader`
+* Localization support (EN/JA) using `package.nls`
+
+### Improved
+
+* More robust alignment processing with defensive checks
+* Skip single-line blocks
+* Skip edit when no changes are detected
+* Improved validation and error handling
+
 ## [0.1.2] - 2026-04-09
 
 ### Changed

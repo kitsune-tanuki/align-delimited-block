@@ -2,7 +2,7 @@
   "name": "align-delimited-block",
   "displayName": "%extension.displayName%",
   "description": "%extension.description%",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "publisher": "kitsune-tanuki",
   "license": "MIT",
   "engines": {
