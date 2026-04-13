@@ -58,6 +58,36 @@ function getSuggestedDelimiter(editor) {
   return detectDelimiterFromText(lineText) || fallback;
 }
 
+function getTargetLines(editor, delimiter) {
+  const document = editor.document;
+  const selection = editor.selection;
+  const lines = [];
+  for (let i = 0; i < document.lineCount; i++) {
+    lines.push(document.lineAt(i).text);
+  }
+  if (!selection.isEmpty) {
+    const startLine = selection.start.line;
+    const endLine = selection.end.line;
+    return {
+      start: startLine,
+      end: endLine,
+      lines: lines.slice(startLine, endLine + 1),
+      mode: "selection",
+    };
+  }
+  const cursorLine = selection.active.line;
+  const block = align.findBlock(lines, cursorLine, delimiter);
+  if (!block) {
+    return null;
+  }
+  return {
+    start: block.start,
+    end: block.end,
+    lines: lines.slice(block.start, block.end + 1),
+    mode: "block",
+  };
+}
+
 // 共通処理
 async function runAlignment(editor, delimiter) {
   try {
@@ -67,19 +97,14 @@ async function runAlignment(editor, delimiter) {
       return;
     }
     const document = editor.document;
-    const cursorLine = editor.selection.active.line;
-    const lines = [];
-    for (let i = 0; i < document.lineCount; i++) {
-      lines.push(document.lineAt(i).text);
-    }
-    const block = align.findBlock(lines, cursorLine, delimiter);
-    if (!block) {
+    const targetInfo = getTargetLines(editor, delimiter);
+    if (!targetInfo) {
       vscode.window.showInformationMessage(
         `No delimited block found (delimiter: "${delimiter}")`,
       );
       return;
     }
-    const target = lines.slice(block.start, block.end + 1);
+    const target = targetInfo.lines;
     if (target.length < 2) {
       vscode.window.showInformationMessage("Nothing to align (only one line)");
       return;
@@ -90,7 +115,7 @@ async function runAlignment(editor, delimiter) {
     }
     const success = await editor.edit((editBuilder) => {
       for (let i = 0; i < formatted.length; i++) {
-        const lineNumber = block.start + i;
+        const lineNumber = targetInfo.start + i;
         const line = document.lineAt(lineNumber);
         editBuilder.replace(line.range, formatted[i]);
       }
