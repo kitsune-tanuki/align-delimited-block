@@ -140,6 +140,6 @@ vite.config.ts.timestamp-*
 
 # Project specific
 *.vsix
-test.js
+test/
 .DS_Store
 Thumbs.db
