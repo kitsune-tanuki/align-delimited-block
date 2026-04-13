@@ -72,7 +72,137 @@ function findBlock(lines, cursor, sep) {
   return { start, end };
 }
 
-function formatBlock(blockLines, sep) {
+function isMarkdownSeparator(line) {
+  const t = line.trim();
+  if (!t.includes("|")) return false;
+  const parts = t
+    .split("|")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (parts.length === 0) return false;
+  return parts.every((p) => /^:?-{3,}:?$/.test(p));
+}
+
+function isMarkdownTable(lines) {
+  if (lines.length < 2) return false;
+  if (!isMarkdownSeparator(lines[1])) return false;
+  return lines.every((line) => line.includes("|"));
+}
+
+function splitMarkdownRow(line) {
+  const trimmed = line.trim();
+  const startsWithPipe = trimmed.startsWith("|");
+  const endsWithPipe = trimmed.endsWith("|");
+  let parts = trimmed.split("|");
+  if (startsWithPipe) parts = parts.slice(1);
+  if (endsWithPipe) parts = parts.slice(0, -1);
+  return {
+    startsWithPipe,
+    endsWithPipe,
+    cells: parts.map((s) => s.trim()),
+  };
+}
+
+function getMarkdownAlign(cell) {
+  const trimmed = cell.trim();
+  if (/^:-{3,}:$/.test(trimmed)) return "center";
+  if (/^-{3,}:$/.test(trimmed)) return "right";
+  if (/^:-{3,}$/.test(trimmed)) return "left";
+  if (/^-{3,}$/.test(trimmed)) return "left";
+  return "left";
+}
+
+function getMarkdownSeparatorStyle(cell) {
+  const trimmed = cell.trim();
+  return {
+    leftColon: trimmed.startsWith(":"),
+  };
+}
+
+function padMarkdownCell(text, width, align) {
+  const cellWidth = stringWidth(text);
+  const diff = Math.max(0, width - cellWidth);
+  if (align === "right") {
+    return " ".repeat(diff) + text;
+  }
+  if (align === "center") {
+    const left = Math.floor(diff / 2);
+    const right = diff - left;
+    return " ".repeat(left) + text + " ".repeat(right);
+  }
+  return text + " ".repeat(diff);
+}
+
+function makeMarkdownSeparator(width, align, style = {}) {
+  const innerWidth = Math.max(3, width);
+  const leftColon = !!style.leftColon;
+  if (align === "center") {
+    return ":" + "-".repeat(Math.max(1, innerWidth - 2)) + ":";
+  }
+  if (align === "right") {
+    return "-".repeat(Math.max(3, innerWidth - 1)) + ":";
+  }
+  if (leftColon) {
+    return ":" + "-".repeat(Math.max(3, innerWidth - 1));
+  }
+  return "-".repeat(Math.max(3, innerWidth));
+}
+
+function formatMarkdownTable(lines, options = {}) {
+  const parsed = lines.map(splitMarkdownRow);
+  const columnCount = Math.max(...parsed.map((row) => row.cells.length));
+  for (const row of parsed) {
+    while (row.cells.length < columnCount) {
+      row.cells.push("");
+    }
+  }
+  const aligns = parsed[1].cells.map(getMarkdownAlign);
+  const separatorStyles = parsed[1].cells.map(getMarkdownSeparatorStyle);
+  while (aligns.length < columnCount) {
+    aligns.push("left");
+  }
+  while (separatorStyles.length < columnCount) {
+    separatorStyles.push({ leftColon: false, rightColon: false });
+  }
+  const widths = new Array(columnCount).fill(3);
+  for (let rowIndex = 0; rowIndex < parsed.length; rowIndex++) {
+    if (rowIndex === 1) continue; // separator row
+    const row = parsed[rowIndex];
+    for (let col = 0; col < columnCount; col++) {
+      widths[col] = Math.max(widths[col], stringWidth(row.cells[col]));
+    }
+  }
+  const centerHeader = options.markdownTableCenterHeader !== false;
+  const headerAligns = centerHeader
+    ? new Array(columnCount).fill("center")
+    : aligns;
+  const formatted = [];
+  for (let rowIndex = 0; rowIndex < parsed.length; rowIndex++) {
+    const row = parsed[rowIndex];
+    if (rowIndex === 1) {
+      const separatorCells = widths.map((width, col) =>
+        makeMarkdownSeparator(
+          width,
+          aligns[col] || "left",
+          separatorStyles[col],
+        ),
+      );
+      formatted.push(`| ${separatorCells.join(" | ")} |`);
+      continue;
+    }
+    const rowAligns = rowIndex === 0 ? headerAligns : aligns;
+    const paddedCells = row.cells.map((cell, col) =>
+      padMarkdownCell(cell, widths[col], rowAligns[col] || "left"),
+    );
+    formatted.push(`| ${paddedCells.join(" | ")} |`);
+  }
+  return formatted;
+}
+
+function formatBlock(blockLines, sep, options = {}) {
+  if (sep === "|" && isMarkdownTable(blockLines)) {
+    return formatMarkdownTable(blockLines, options);
+  }
   const parsed = [];
   const widths = [];
   for (const line of blockLines) {

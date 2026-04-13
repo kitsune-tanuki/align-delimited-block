@@ -109,7 +109,10 @@ async function runAlignment(editor, delimiter) {
       vscode.window.showInformationMessage("Nothing to align (only one line)");
       return;
     }
-    const formatted = align.formatBlock(target, delimiter);
+    const config = vscode.workspace.getConfiguration("alignDelimitedBlock");
+    const formatted = align.formatBlock(target, delimiter, {
+      markdownTableCenterHeader: config.get("markdownTableCenterHeader", false),
+    });
     if (target.join("\n") === formatted.join("\n")) {
       return;
     }

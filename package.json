@@ -68,6 +68,11 @@
           "type": "string",
           "default": "|",
           "description": "Default delimiter used by Align Delimited Block (Ctrl+Shift+A)"
+        },
+        "alignDelimitedBlock.markdownTableCenterHeader": {
+          "type": "boolean",
+          "default": false,
+          "description": "Center-align the Markdown table header row instead of following the separator alignment"
         }
       }
     }
