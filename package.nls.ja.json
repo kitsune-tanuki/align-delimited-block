@@ -1,0 +1,12 @@
+{
+  "extension.displayName": "Align Delimited Block",
+  "extension.description": "| や &、=> などの区切り文字、または任意入力の区切り文字を使ってテキストブロックを整列します。AsciiDocテーブル、LaTeX align環境、Markdownテーブル、一般的なテキスト整形に便利です。",
+
+  "command.category": "Align Delimited Block",
+  "command.align.title": "デフォルト区切り文字で整列",
+  "command.alignWithPrompt.title": "任意の区切り文字で整列",
+
+  "config.title": "Align Delimited Block",
+  "config.defaultDelimiter.description": "デフォルト整列コマンド (Ctrl+Shift+A) で使用する区切り文字を設定します。",
+  "config.markdownTableCenterHeader.description": "Markdownテーブルのヘッダー行を、区切り行の揃えに従わせる代わりに中央揃えにします。"
+}

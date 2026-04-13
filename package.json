@@ -1,7 +1,7 @@
 {
   "name": "align-delimited-block",
-  "displayName": "Align Delimited Block",
-  "description": "Align text blocks using delimiters like |, &, => or custom input. Useful for AsciiDoc tables, LaTeX align environments and general text formatting.",
+  "displayName": "%extension.displayName%",
+  "description": "%extension.description%",
   "version": "0.1.2",
   "publisher": "kitsune-tanuki",
   "license": "MIT",
@@ -21,7 +21,8 @@
     "asciidoc",
     "latex",
     "tex",
-    "columns"
+    "columns",
+    "markdown"
   ],
   "repository": {
     "type": "git",
@@ -40,13 +41,13 @@
     "commands": [
       {
         "command": "alignDelimitedBlock.align",
-        "title": "Align Delimited Block (Default Delimiter)",
-        "category": "Align Delimited Block"
+        "title": "%command.align.title%",
+        "category": "%command.category%"
       },
       {
         "command": "alignDelimitedBlock.alignWithPrompt",
-        "title": "Align Delimited Block (Custom Delimiter)",
-        "category": "Align Delimited Block"
+        "title": "%command.alignWithPrompt.title%",
+        "category": "%command.category%"
       }
     ],
     "keybindings": [
@@ -62,17 +63,17 @@
       }
     ],
     "configuration": {
-      "title": "Align Delimited Block",
+      "title": "%config.title%",
       "properties": {
         "alignDelimitedBlock.defaultDelimiter": {
           "type": "string",
           "default": "|",
-          "description": "Default delimiter used by Align Delimited Block (Ctrl+Shift+A)"
+          "description": "%config.defaultDelimiter.description%"
         },
         "alignDelimitedBlock.markdownTableCenterHeader": {
           "type": "boolean",
           "default": false,
-          "description": "Center-align the Markdown table header row instead of following the separator alignment"
+          "description": "%config.markdownTableCenterHeader.description%"
         }
       }
     }

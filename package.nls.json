@@ -1,0 +1,12 @@
+{
+  "extension.displayName": "Align Delimited Block",
+  "extension.description": "Align text blocks using delimiters like |, &, => or custom input. Useful for AsciiDoc tables, LaTeX align environments, Markdown tables, and general text formatting.",
+
+  "command.category": "Align Delimited Block",
+  "command.align.title": "Align with Default Delimiter",
+  "command.alignWithPrompt.title": "Align with Custom Delimiter",
+
+  "config.title": "Align Delimited Block",
+  "config.defaultDelimiter.description": "Default delimiter used by the default alignment command (Ctrl+Shift+A).",
+  "config.markdownTableCenterHeader.description": "Center-align the Markdown table header row instead of following the separator alignment."
+}
