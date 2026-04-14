@@ -1,12 +1,36 @@
 # Align Delimited Block
 
-[日本語版はこちら / Japanese README](./README.ja.md)
-
 A VSCode extension that automatically aligns delimiter-structured text blocks around the cursor.
 
-Unlike many alignment tools, this extension calculates **visual display width**, allowing full-width characters (Japanese, Chinese, Korean), emoji, and combining characters to align correctly.
+[🇯🇵 日本語版はこちら / Japanese README](./README.ja.md)
 
-Useful for AsciiDoc tables, LaTeX align environments, arrow expressions, configuration files, and general column-style formatting.
+Align delimiter-structured text blocks instantly — with correct visual width.
+
+<video src="https://raw.githubusercontent.com/kitsune-tanuki/align-delimited-block/main/assets/demo/basic.mp4"
+       controls
+       muted
+       loop>
+</video>
+
+---
+
+## Key features
+
+* Full-width (CJK) support
+* Multi-character delimiters
+* No selection required
+* Auto block detection
+* Display-width based alignment
+
+---
+
+## Overview
+
+This extension automatically aligns text structured with delimiters.
+
+While common formatting tools align based on character count, they often cause misalignment when dealing with full-width (CJK) characters.
+
+This extension calculates the actual "display width" to ensure text is visually aligned correctly.
 
 ---
 
@@ -15,6 +39,7 @@ Useful for AsciiDoc tables, LaTeX align environments, arrow expressions, configu
 * Align using the configured default delimiter (`|` by default)
 * Align using a custom delimiter (user input)
 * Supports multi-character delimiters (`=>`, `::`, `->`, etc.)
+* Pre-fills the custom delimiter prompt based on the current line or selection
 * Automatically detects contiguous structured lines around the cursor
 * Skips single-line blocks
 * No text selection required
@@ -216,9 +241,10 @@ No additional requirements.
 This extension supports the following setting:
 
 * `alignDelimitedBlock.defaultDelimiter`  
-  Sets the delimiter used by **Align Delimited Block (Default Delimiter)** (`Ctrl+Shift+A`).
-
-Default: `|`
+  Sets the delimiter used by **Align Delimited Block (Default Delimiter)** (`Ctrl+Shift+A`).  
+  Default: `|`
+* `alignDelimitedBlock.markdownTableCenterHeader`  
+  If enabled, forces Markdown table headers to be centered, ignoring alignment markers such as `:---`, `---:`, or `:---:`.
 
 ---
 
