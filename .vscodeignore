@@ -1,9 +1,9 @@
 .git
+.gitattributes
 .gitignore
-test.js
-test/
-*.test.js
-node_modules/
 .vscode
-*.md
-CHANGELOG.md
+.vscodeignore
+node_modules/
+assets/demo/
+misc/
+README.ja.md
