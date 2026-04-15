@@ -2,7 +2,7 @@
   "name": "align-delimited-block",
   "displayName": "%extension.displayName%",
   "description": "%extension.description%",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "icon": "assets/icon/icon.png",
   "publisher": "kitsune-tanuki",
   "license": "MIT",
@@ -10,8 +10,7 @@
     "vscode": "^1.80.0"
   },
   "categories": [
-    "Formatters",
-    "Other"
+    "Formatters"
   ],
   "keywords": [
     "align",
