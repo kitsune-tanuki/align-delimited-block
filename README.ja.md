@@ -1,16 +1,10 @@
 # Align Delimited Block
 
-デリミタで区切られたテキストブロックを整列する VSCode 拡張です。
+デリミタで区切られたテキストブロックを、見た目の表示幅で整列します。
 
 [🇺🇸 Click here for English version / English README](./README.md)
 
-見た目の表示幅で整列します。
-
-<video src="https://raw.githubusercontent.com/kitsune-tanuki/align-delimited-block/main/assets/demo/basic.mp4"
-       controls
-       muted
-       loop>
-</video>
+![demo](./assets/demo/basic.gif)
 
 ---
 

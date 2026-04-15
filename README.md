@@ -1,16 +1,10 @@
 # Align Delimited Block
 
-A VSCode extension that automatically aligns delimiter-structured text blocks around the cursor.
+Align delimiter-structured text blocks instantly — with correct visual width.
 
 [🇯🇵 日本語版はこちら / Japanese README](./README.ja.md)
 
-Align delimiter-structured text blocks instantly — with correct visual width.
-
-<video src="https://raw.githubusercontent.com/kitsune-tanuki/align-delimited-block/main/assets/demo/basic.mp4"
-       controls
-       muted
-       loop>
-</video>
+![demo](./assets/demo/basic.gif)
 
 ---
 
